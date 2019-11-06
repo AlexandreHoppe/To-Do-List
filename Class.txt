@@ -1,0 +1,19 @@
+public class toDoListClass {
+    
+    public Integer tableVal {get;set;}
+    public List<Opportunity> todayAppointment{get;set;}
+    public List<Lead> allLead{get;set;}
+    public List<Task> allTask{get;set;}
+    
+
+    public toDoListClass(ApexPages.StandardController controller){
+                
+        tableVal = 1;
+        string userId = UserInfo.getUserId();
+        
+        todayAppointment = [SELECT Name FROM Opportunity WHERE Appointment_Time__c = TODAY AND OwnerId = :userId AND StageName != 'Closed'];
+        allLead = [SELECT Name FROM Lead WHERE OwnerId = :userId];
+        allTask = [SELECT Subject, ActivityDate FROM Task WHERE OwnerId = :userId AND status = 'Open' ORDER BY ActivityDate];
+        
+    }
+}

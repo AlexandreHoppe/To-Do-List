@@ -1,0 +1,46 @@
+<apex:page standardController="Opportunity" extensions="toDoListClass">
+    
+    <style>
+        .late{
+            background-color: red;
+        }
+        
+        .good{
+            background-color: white;
+        }
+    </style>
+    
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+                <apex:pageBlockTable value="{!todayAppointment}" var="opp" style="width:300px" >
+                    <apex:column >
+                        <apex:facet name="header">Today's Appointment</apex:facet>
+                        <apex:outputLink value="https://1stclassrealestate123--rebackup.lightning.force.com/lightning/r/Opportunity/{!Opp.id}/view">
+                            <apex:outputText value="{!opp.name}"></apex:outputText>
+                        </apex:outputLink>
+                    </apex:column>
+                </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+                <apex:pageBlockTable value="{!allLead}" var="Lead" style="width:300px" >
+                    <apex:column >
+                        <apex:facet name="header">Lead</apex:facet>
+                        <apex:outputLink value="https://1stclassrealestate123--rebackup.lightning.force.com/lightning/r/Lead/{!Lead.id}/view">
+                            <apex:outputText value="{!Lead.name}"></apex:outputText>
+                        </apex:outputLink>
+                    </apex:column>
+                </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+                <apex:pageBlockTable value="{!allTask}" var="Task" style="width:300px" >
+                    <apex:column styleClass="{!IF((AND(NOT(ISBLANK(Task.ActivityDate)), Task.ActivityDate < Today())), 'late', 'good')}">
+                        <apex:facet name="header">Task</apex:facet>
+                        <apex:outputLink value="https://1stclassrealestate123--rebackup.lightning.force.com/lightning/r/Task/{!Task.id}/view" >
+                            <apex:outputText value="{!Task.Subject}"></apex:outputText>
+                        </apex:outputLink>
+                    </apex:column>
+                </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
